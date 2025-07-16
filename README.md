@@ -161,14 +161,15 @@ If, as suggested above, you've added `ex_check` and curated tools to `only: [:de
 You may avoid this issue by running `mix check` and all the tools it depends on in the test environment. In such case you may want to have the following config in `mix.exs`:
 
 ```elixir
-def project do
+def cli do
   [
-    # ...
-    preferred_cli_env: [
+    preferred_envs: [
       check: :test,
       credo: :test,
       dialyzer: :test,
       doctor: :test,
+      docs: :test,
+      format: :test,
       sobelow: :test,
       "deps.audit": :test
     ]
@@ -182,8 +183,8 @@ def deps do
     {:doctor, ">= 0.0.0", only: [:test], runtime: false},
     {:ex_check, "~> 0.14.0", only: [:test], runtime: false},
     {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
-    {:sobelow, ">= 0.0.0", only: [:test], runtime: false},
     {:mix_audit, ">= 0.0.0", only: [:test], runtime: false}
+    {:sobelow, ">= 0.0.0", only: [:test], runtime: false},
   ]
 end
 ```
@@ -194,8 +195,8 @@ And the following in `.check.exs`:
 [
   tools: [
     {:compiler, env: %{"MIX_ENV" => "test"}},
-    {:formatter, env: %{"MIX_ENV" => "test"}},
     {:ex_doc, env: %{"MIX_ENV" => "test"}}
+    {:formatter, env: %{"MIX_ENV" => "test"}},
   ]
 ]
 ```

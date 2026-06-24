@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet.
+- **Added** pluggable `ExCheck.Reporter` behaviour, replacing inline result rendering in `ExCheck.Check`
+- **Added** `--format json` reporter emitting the full run as a JSON document for machine consumption
+- **Added** `--format agent` reporter with a compact one-line-per-tool summary and failing output only, optimised for LLM/agent consumption
+- **Added** `--output <path>` option to write reporter output to a file instead of stdout
+- **Improved** toolchain and CI matrix to Elixir 1.20 / OTP 28
 
 ## [0.16.0] - 2024-03-01
 

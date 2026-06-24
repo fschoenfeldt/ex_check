@@ -15,9 +15,9 @@ defmodule ExCheck.Reporter do
   @callback report(results :: [result], total_duration :: integer, opts) :: :ok
 
   @formats %{
-    pretty: ExCheck.Reporter.Pretty
+    pretty: ExCheck.Reporter.Pretty,
+    json: ExCheck.Reporter.Json
     # agent: ExCheck.Reporter.Agent,
-    # json: ExCheck.Reporter.Json
   }
 
   @doc "Resolves a format atom to its reporter module."

@@ -14,8 +14,13 @@ defmodule ExCheck.MixProject do
       deps: deps(),
       docs: docs(),
       package: package(),
-      xref: [exclude: [:crypto]],
-      preferred_cli_env: [
+      elixirc_options: [no_warn_undefined: [:crypto]]
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [
         check: :test,
         credo: :test,
         dialyxir: :test,
@@ -53,7 +58,7 @@ defmodule ExCheck.MixProject do
         "README.md": [title: "Overview"]
       ],
       main: "readme",
-      assets: "assets",
+      assets: %{"assets" => "assets"},
       logo: "assets/logo.svg",
       source_url: @github_url,
       source_ref: "v#{@version}",

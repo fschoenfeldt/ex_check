@@ -14,6 +14,7 @@ defmodule ExCheck.MixProject do
       deps: deps(),
       docs: docs(),
       package: package(),
+      usage_rules: usage_rules(),
       elixirc_options: [no_warn_undefined: [:crypto]]
     ]
   end
@@ -46,7 +47,15 @@ defmodule ExCheck.MixProject do
       {:doctor, ">= 0.0.0", only: [:test], runtime: false},
       {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:sobelow, ">= 0.0.0", only: [:test], runtime: false},
-      {:mix_audit, ">= 0.0.0", only: [:test], runtime: false}
+      {:mix_audit, ">= 0.0.0", only: [:test], runtime: false},
+      {:usage_rules, "~> 1.2", only: [:dev], runtime: false}
+    ]
+  end
+
+  defp usage_rules do
+    [
+      file: "AGENTS.md",
+      usage_rules: :all
     ]
   end
 
@@ -73,6 +82,16 @@ defmodule ExCheck.MixProject do
         "One task to efficiently run all code analysis & testing tools in an Elixir project",
       maintainers: ["Karol Słuszniak"],
       licenses: ["MIT"],
+      files: [
+        "lib",
+        "priv",
+        "mix.exs",
+        "README.md",
+        "CHANGELOG.md",
+        "LICENSE.md",
+        "usage-rules.md",
+        "usage-rules"
+      ],
       links: %{
         "Changelog" => "https://hexdocs.pm/ex_check/changelog.html",
         "GitHub repository" => @github_url

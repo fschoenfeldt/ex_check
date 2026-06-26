@@ -2,7 +2,7 @@ defmodule ExCheck.JSON do
   @moduledoc false
 
   # Minimal JSON encoder for the fully-controlled output of the JSON/agent reporters.
-  # Kept dependency-free on purpose: ex_check targets Elixir ~> 1.15 (the built-in
+  # Kept dependency-free on purpose: ex_check targets Elixir ~> 1.17 (the built-in
   # JSON module only arrived in 1.18) and must not pull a runtime dep like Jason.
 
   @spec encode(term) :: iodata

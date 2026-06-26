@@ -11,7 +11,7 @@ First release of `ex_check_ng`, a community-maintained fork of
 [`ex_check`](https://github.com/karolsluszniak/ex_check), dormant since 2024. The module namespace
 (`ExCheck`) and the `mix check` task are unchanged, so it stays a drop-in replacement.
 
-- **Changed** minimum supported Elixir version from Elixir 1.12 to Elixir 1.15 (the bundled `usage_rules` tooling requires it)
+- **Changed** minimum supported Elixir version from Elixir 1.12 to Elixir 1.17 (bundled tooling — `usage_rules` and `mix_audit`'s `yaml_elixir` — requires it)
 - **Added** pluggable `ExCheck.Reporter` behaviour, replacing inline result rendering in `ExCheck.Check`
 - **Added** `--format json` reporter emitting the full run as a JSON document for machine consumption
 - **Added** `--format agent` reporter with a compact one-line-per-tool summary and failing output only, optimised for LLM/agent consumption

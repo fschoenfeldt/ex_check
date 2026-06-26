@@ -248,6 +248,11 @@ defmodule Mix.Tasks.Check do
   - `--[no-]retry` - (don't) run only checks that have failed in the last run
   - `--[no-]parallel` - (don't) run tools in parallel
   - `--[no-]skipped` - (don't) print skipped tools in summary
+  - `--format pretty|agent|json` - output format; `pretty` (default) is the live
+    colored terminal output, `agent` is an LLM-friendly JSON status header followed by
+    raw failure blocks, `json` is a single machine-readable JSON object
+  - `--output path/to/report` - write the report to a file instead of stdout
+    (only valid with `--format agent` or `--format json`)
 
   [`:compiler`]: https://hexdocs.pm/mix/Mix.Tasks.Compile.html
   [`:credo`]: https://hexdocs.pm/credo
@@ -275,8 +280,10 @@ defmodule Mix.Tasks.Check do
     except: :keep,
     exit_status: :boolean,
     fix: :boolean,
+    format: :string,
     manifest: :string,
     only: :keep,
+    output: :string,
     parallel: :boolean,
     retry: :boolean,
     skipped: :boolean
@@ -301,10 +308,32 @@ defmodule Mix.Tasks.Check do
   end
 
   defp process_opts(opts) do
-    Enum.map(opts, fn
-      {:only, name} -> {:only, String.to_atom(name)}
-      {:except, name} -> {:except, String.to_atom(name)}
-      opt -> opt
-    end)
+    opts =
+      Enum.map(opts, fn
+        {:only, name} -> {:only, String.to_atom(name)}
+        {:except, name} -> {:except, String.to_atom(name)}
+        {:format, format} -> {:format, parse_format(format)}
+        opt -> opt
+      end)
+
+    validate_opts(opts)
+
+    opts
+  end
+
+  defp parse_format("pretty"), do: :pretty
+  defp parse_format("agent"), do: :agent
+  defp parse_format("json"), do: :json
+
+  defp parse_format(other) do
+    Mix.raise("Invalid --format #{inspect(other)}, expected one of: pretty, agent, json")
+  end
+
+  defp validate_opts(opts) do
+    if opts[:output] && Keyword.get(opts, :format, :pretty) == :pretty do
+      Mix.raise(
+        "--output requires --format agent or --format json (pretty streams to the terminal)"
+      )
+    end
   end
 end

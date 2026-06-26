@@ -1,11 +1,16 @@
 # ![ex_check](./assets/logo-with-name.svg)
 
-[![Hex version](https://img.shields.io/hexpm/v/ex_check.svg?color=hsl(265,40%,60%))](https://hex.pm/packages/ex_check)
-[![Hex docs](https://img.shields.io/badge/hex-docs-lightgreen.svg?color=hsl(265,40%,60%))](https://hexdocs.pm/ex_check/)
-[![Build status](https://img.shields.io/github/actions/workflow/status/karolsluszniak/ex_check/check.yml?branch=master)](https://github.com/karolsluszniak/ex_check/actions)
-[![Downloads](https://img.shields.io/hexpm/dt/ex_check.svg)](https://hex.pm/packages/ex_check)
-[![License](https://img.shields.io/github/license/karolsluszniak/ex_check.svg)](https://github.com/karolsluszniak/ex_check/blob/master/LICENSE.md)
-[![Last updated](https://img.shields.io/github/last-commit/karolsluszniak/ex_check.svg)](https://github.com/karolsluszniak/ex_check/commits/master)
+[![Hex version](https://img.shields.io/hexpm/v/ex_check_ng.svg?color=hsl(265,40%,60%))](https://hex.pm/packages/ex_check_ng)
+[![Hex docs](https://img.shields.io/badge/hex-docs-lightgreen.svg?color=hsl(265,40%,60%))](https://hexdocs.pm/ex_check_ng/)
+[![Build status](https://img.shields.io/github/actions/workflow/status/fschoenfeldt/ex_check/check.yml?branch=master)](https://github.com/fschoenfeldt/ex_check/actions)
+[![Downloads](https://img.shields.io/hexpm/dt/ex_check_ng.svg)](https://hex.pm/packages/ex_check_ng)
+[![License](https://img.shields.io/github/license/fschoenfeldt/ex_check.svg)](https://github.com/fschoenfeldt/ex_check/blob/master/LICENSE.md)
+[![Last updated](https://img.shields.io/github/last-commit/fschoenfeldt/ex_check.svg)](https://github.com/fschoenfeldt/ex_check/commits/master)
+
+> **`ex_check_ng`** is a community-maintained fork of
+> [`ex_check`](https://github.com/karolsluszniak/ex_check) (dormant since 2024). Module namespace
+> (`ExCheck`) and the `mix check` task are unchanged — drop-in replacement. Install as
+> `{:ex_check_ng, "~> 1.0", only: [:dev], runtime: false}`.
 
 ![Demo](./assets/demo-67x16.svg)
 
@@ -35,12 +40,12 @@ Read more in the introductory ["One task to rule all Elixir analysis & testing t
 
 ## Getting started
 
-Add `ex_check` dependency in `mix.exs`:
+Add `ex_check_ng` dependency in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:ex_check, "~> 0.16.0", only: [:dev], runtime: false}
+    {:ex_check_ng, "~> 1.0", only: [:dev], runtime: false}
   ]
 end
 ```
@@ -181,7 +186,7 @@ def deps do
     {:credo, ">= 0.0.0", only: [:test], runtime: false},
     {:dialyxir, ">= 0.0.0", only: [:test], runtime: false},
     {:doctor, ">= 0.0.0", only: [:test], runtime: false},
-    {:ex_check, "~> 0.14.0", only: [:test], runtime: false},
+    {:ex_check_ng, "~> 1.0", only: [:test], runtime: false},
     {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
     {:mix_audit, ">= 0.0.0", only: [:test], runtime: false}
     {:sobelow, ">= 0.0.0", only: [:test], runtime: false},

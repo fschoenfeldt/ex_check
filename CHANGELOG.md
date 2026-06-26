@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0-rc.0] - 2026-06-26
+
+First release of `ex_check_ng`, a community-maintained fork of
+[`ex_check`](https://github.com/karolsluszniak/ex_check), dormant since 2024. The module namespace
+(`ExCheck`) and the `mix check` task are unchanged, so it stays a drop-in replacement.
 
 - **Added** pluggable `ExCheck.Reporter` behaviour, replacing inline result rendering in `ExCheck.Check`
 - **Added** `--format json` reporter emitting the full run as a JSON document for machine consumption

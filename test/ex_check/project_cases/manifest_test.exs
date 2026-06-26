@@ -125,14 +125,20 @@ defmodule ExCheck.ProjectCases.ManifestTest do
     assert output =~ "formatter success"
     assert output =~ "ex_unit error code"
 
-    assert output =~ "1/2 tests"
+    # This asserts on ex_unit's own failure-count wording, which is a side
+    # effect of the running Elixir version rather than ex_check behaviour:
+    # newer Elixir reports "1/2 tests", others "2 tests, 1 failure". Accept
+    # either so the suite is not pinned to a single Elixir release.
+    assert output =~ "1/2 tests" or output =~ "2 tests, 1 failure"
 
     output = System.cmd("mix", ~w[check --retry], cd: project_dir) |> cmd_exit(1)
 
     refute output =~ "formatter"
     assert output =~ "ex_unit error code"
 
-    assert output =~ "0/1 passed"
+    # Same version-dependent ex_unit wording as above: newer Elixir reports
+    # "0/1 passed", others "1 test, 1 failure".
+    assert output =~ "0/1 passed" or output =~ "1 test, 1 failure"
 
     File.write!(
       failing_test_path,

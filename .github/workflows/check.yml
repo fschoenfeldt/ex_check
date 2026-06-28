@@ -6,33 +6,32 @@ jobs:
   mix_check:
     name: mix check (Elixir ${{matrix.elixir}}, OTP ${{matrix.otp}})
 
+    runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
         include:
           - elixir: '1.20.2'
             otp: '28.5'
-          - elixir: '1.16.1'
+            os: 'ubuntu-24.04'
+          # Elixir 1.17 floor (minimum supported version).
+          - elixir: '1.17.3'
             otp: '26.2.2'
-          - elixir: '1.14.5'
-            otp: '24.3.4.16'
-          - elixir: '1.12.3'
-            otp: '22.3.4.26'
-
-    runs-on: ubuntu-20.04
+            os: 'ubuntu-22.04'
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Elixir
-        uses: erlef/setup-elixir@v1
+        uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
 
       - name: Cache deps and build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps

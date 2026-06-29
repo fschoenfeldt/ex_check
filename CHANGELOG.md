@@ -5,13 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-rc.1] - 2026-06-29
+
+- **Documented** the minimum Elixir bump (1.12 → 1.17) as a **breaking** change in the changelog, with an upgrade path for projects on Elixir 1.12–1.16
+- **Added** README "Usage rules for coding agents" section recommending [`usage_rules`](https://hex.pm/packages/usage_rules) so projects sync the shipped rules into `AGENTS.md` and agents drive `mix check --format agent`
+
 ## [1.0.0-rc.0] - 2026-06-26
 
 First release of `ex_check_ng`, a community-maintained fork of
 [`ex_check`](https://github.com/karolsluszniak/ex_check), dormant since 2024. The module namespace
 (`ExCheck`) and the `mix check` task are unchanged, so it stays a drop-in replacement.
 
-- **Changed** minimum supported Elixir version from Elixir 1.12 to Elixir 1.17 (bundled tooling — `usage_rules` and `mix_audit`'s `yaml_elixir` — requires it)
+- **BREAKING — Changed** minimum supported Elixir version from Elixir 1.12 to Elixir 1.17 (bundled tooling — `usage_rules` and `mix_audit`'s `yaml_elixir` — requires it). Projects on Elixir 1.12–1.16 must stay on `ex_check` `0.16.0` or upgrade Elixir.
 - **Added** pluggable `ExCheck.Reporter` behaviour, replacing inline result rendering in `ExCheck.Check`
 - **Added** `--format json` reporter emitting the full run as a JSON document for machine consumption
 - **Added** `--format agent` reporter with a compact one-line-per-tool summary and failing output only, optimised for LLM/agent consumption

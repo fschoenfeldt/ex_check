@@ -90,6 +90,47 @@ mix check.gen.config
 
 Among others, this allows to permanently disable specific tools and avoid the skipped notices.
 
+### Usage rules for coding agents
+
+`ex_check_ng` ships [usage rules](https://hexdocs.pm/usage_rules) — concise, authoritative
+guidance written for LLM coding agents (Claude Code, Cursor, ...) on how to drive `mix check`,
+including using `mix check --format agent` for machine-readable output.
+
+It is recommended to sync these into your project's agent rules file so agents automatically pick
+the right flags. Add [`usage_rules`](https://hex.pm/packages/usage_rules):
+
+```elixir
+def deps do
+  [
+    {:usage_rules, "~> 1.2", only: [:dev], runtime: false}
+  ]
+end
+```
+
+Configure the sync in `mix.exs` (the config is the source of truth):
+
+```elixir
+def project do
+  [
+    # ...
+    usage_rules: [
+      file: "AGENTS.md",
+      usage_rules: [:ex_check_ng]
+    ]
+  ]
+end
+```
+
+Then run:
+
+```
+mix deps.get
+mix usage_rules.sync
+```
+
+This keeps an `ex_check_ng` section in your `AGENTS.md` in sync with the rules shipped by the
+package, so coding agents run `mix check --format agent` instead of parsing human-oriented output.
+
 ```elixir
 [
   tools: [

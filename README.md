@@ -7,10 +7,22 @@
 [![License](https://img.shields.io/github/license/fschoenfeldt/ex_check.svg)](https://github.com/fschoenfeldt/ex_check/blob/master/LICENSE.md)
 [![Last updated](https://img.shields.io/github/last-commit/fschoenfeldt/ex_check.svg)](https://github.com/fschoenfeldt/ex_check/commits/master)
 
-> **`ex_check_ng`** is a community-maintained fork of
-> [`ex_check`](https://github.com/karolsluszniak/ex_check) (dormant since 2024). Module namespace
-> (`ExCheck`) and the `mix check` task are unchanged — drop-in replacement. Install as
-> `{:ex_check_ng, "~> 1.0", only: [:dev], runtime: false}`.
+> [!WARNING]
+> **`ex_check_ng` is retired.** All of its changes have been merged back into
+> [`ex_check`](https://github.com/karolsluszniak/ex_check), which is maintained again. This
+> repository is archived and no further `ex_check_ng` versions will be published.
+>
+> To migrate, replace the dependency in `mix.exs` — note both the package name **and** the
+> version change (`ex_check_ng` 1.0.0-rc.x corresponds to `ex_check` 0.17.0):
+>
+> ```diff
+> - {:ex_check_ng, "~> 1.0", only: [:dev, :test], runtime: false}
+> + {:ex_check, "~> 0.17", only: [:dev, :test], runtime: false}
+> ```
+>
+> If you sync usage rules, also rename `:ex_check_ng` to `:ex_check` under `usage_rules:` in
+> `mix.exs` and re-run `mix usage_rules.sync`. Module namespace (`ExCheck`), the `mix check` task
+> and `.check.exs` stay the same.
 
 ![Demo](./assets/demo-67x16.svg)
 

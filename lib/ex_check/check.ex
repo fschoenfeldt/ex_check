@@ -47,7 +47,7 @@ defmodule ExCheck.Check do
     {compiler, others} = Compiler.compile(tools, opts)
 
     start_time = DateTime.utc_now()
-    compiler_result = run_compiler(compiler, opts)
+    compiler_result = run_tool(compiler, opts)
     others_results = if run_others?(compiler_result), do: run_others(others, opts), else: []
     total_duration = DateTime.diff(DateTime.utc_now(), start_time)
 
@@ -58,10 +58,6 @@ defmodule ExCheck.Check do
     reporter.report(all_results, total_duration, opts)
     Manifest.save(all_results, opts)
     maybe_set_exit_status(failed_results)
-  end
-
-  defp run_compiler(compiler, opts) do
-    run_tool(compiler, opts)
   end
 
   defp live?(opts), do: Keyword.get(opts, :format, :pretty) == :pretty
@@ -88,9 +84,25 @@ defmodule ExCheck.Check do
         collect_fn: &await_tool(&1, opts)
       )
 
-    skipped = filter_broken_skipped(broken, finished)
+    skipped =
+      if failed_name = halted_by(finished, opts) do
+        Enum.map(broken, fn {:pending, {name, _, _}} ->
+          {:skipped, name, {:halted, failed_name}}
+        end)
+      else
+        filter_broken_skipped(broken, finished)
+      end
 
     {finished, skipped}
+  end
+
+  defp halted_by(finished, opts) do
+    with true <- Keyword.get(opts, :halt_on_failure, false),
+         {:error, {name, _, _}, _} <- Enum.find(finished, &match?({:error, _, _}, &1)) do
+      name
+    else
+      _ -> nil
+    end
   end
 
   defp filter_broken_skipped(broken, finished) do
@@ -115,6 +127,10 @@ defmodule ExCheck.Check do
   end
 
   defp throttle_tools(pending, running, finished, opts) do
+    if halted_by(finished, opts), do: [], else: throttle_pending(pending, running, finished, opts)
+  end
+
+  defp throttle_pending(pending, running, finished, opts) do
     parallel = Keyword.get(opts, :parallel, true)
 
     pending

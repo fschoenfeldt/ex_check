@@ -5,8 +5,8 @@ description: Cut a release of this Elixir package and publish it to Hex — bump
 
 # Elixir release + Hex publish
 
-Project-local skill for `ex_check_ng`. Not a general Elixir release guide — follows the
-exact convention already used in this repo's git history (see `chore: release 1.0.0-rc.1`).
+Project-local skill for `ex_check`. Not a general Elixir release guide — follows the
+`chore: release X.Y.Z` commit + `vX.Y.Z` tag convention.
 
 ## Preconditions
 
@@ -77,4 +77,4 @@ exact convention already used in this repo's git history (see `chore: release 1.
 - Steps 4, 5, 7, 8 are hard-to-reverse / publicly visible actions — always pause for
   explicit user confirmation before each, even mid-flow. Do not batch them into one
   unattended sequence.
-- Package name on Hex is `ex_check_ng` (see `app:` in `mix.exs`), not `ex_check`.
+- Package name on Hex is `ex_check` (see `app:` in `mix.exs`).

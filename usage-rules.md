@@ -32,6 +32,7 @@ of parsing the raw output blocks.
 - `--fix` / `-f` — auto-fix what can be fixed (e.g. `mix format`, unlock unused deps).
 - `--retry` / `-r` — run only tools that failed in the previous run.
 - `--no-parallel` — run tools sequentially.
+- `--halt-on-failure` — don't start further tools once one has failed (best with `--no-parallel`).
 - `--config PATH` / `-c PATH` — use a specific config file.
 - `--format pretty|agent|json|github|junit` — output format (default `pretty`). `github` emits
   GitHub Actions log groups + a `$GITHUB_STEP_SUMMARY` table; `junit` emits a JUnit XML report.
@@ -54,6 +55,7 @@ mix check.gen.config
 - `:parallel` — `false` to disable parallelism (default `true`).
 - `:retry` — `false` to disable auto-retry (default: on when a manifest exists).
 - `:skipped` — `false` to hide skipped tools in the summary.
+- `:halt_on_failure` — `true` to stop starting tools after the first failure (default `false`).
 
 Tool tuple forms:
 
@@ -87,6 +89,7 @@ tools recursively per child app by default; tune via each tool's `:umbrella` opt
 - `compiler` — `mix compile --warnings-as-errors`
 - `formatter` — `mix format --check-formatted` (fix: `mix format`)
 - `unused_deps` — `mix deps.unlock --check-unused` (fix: `--unused`)
+- `hex_audit` — `mix hex.audit` (retired deps & security advisories)
 - `credo` — `mix credo`
 - `dialyzer` — `mix dialyzer` (needs `:dialyxir`)
 - `doctor` — `mix doctor` (needs `:doctor`)
@@ -94,6 +97,8 @@ tools recursively per child app by default; tune via each tool's `:umbrella` opt
 - `sobelow` — `mix sobelow --exit` (needs `:sobelow`)
 - `mix_audit` — `mix deps.audit` (needs `:mix_audit`)
 - `gettext` — `mix gettext.extract --check-up-to-date` (needs `:gettext`)
+- `knigge` / `ex_knigge` — `mix knigge.verify` (needs `:knigge` or `:ex_knigge`, always runs with `MIX_ENV=dev`)
+- `usage_rules` — `mix usage_rules.sync --check` (needs `:usage_rules`; no fix by default, run `mix usage_rules.sync` deliberately)
 - `ex_unit` — `mix test` (retry: `mix test --failed`)
 - `npm_test` — `npm test` in `assets/` (needs `package.json`)
 

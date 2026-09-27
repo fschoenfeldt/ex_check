@@ -1,13 +1,12 @@
 defmodule ExCheck.MixProject do
   use Mix.Project
 
-  @github_url "https://github.com/fschoenfeldt/ex_check"
-  @upstream_url "https://github.com/karolsluszniak/ex_check"
-  @version "1.0.0-rc.2"
+  @github_url "https://github.com/karolsluszniak/ex_check"
+  @version "0.17.0"
 
   def project do
     [
-      app: :ex_check_ng,
+      app: :ex_check,
       version: @version,
       elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -49,14 +48,16 @@ defmodule ExCheck.MixProject do
       {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:sobelow, ">= 0.0.0", only: [:test], runtime: false},
       {:mix_audit, ">= 0.0.0", only: [:test], runtime: false},
-      {:usage_rules, "~> 1.2", only: [:dev], runtime: false}
+      {:usage_rules, "~> 1.2", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp usage_rules do
     [
       file: "AGENTS.md",
-      usage_rules: :all
+      usage_rules: [
+        :usage_rules
+      ]
     ]
   end
 
@@ -80,9 +81,8 @@ defmodule ExCheck.MixProject do
   defp package do
     [
       description:
-        "One task to efficiently run all code analysis & testing tools in an Elixir project. " <>
-          "Community-maintained fork of ex_check.",
-      maintainers: ["Frederik Schönfeldt", "Karol Słuszniak"],
+        "One task to efficiently run all code analysis & testing tools in an Elixir project",
+      maintainers: ["Karol Słuszniak"],
       licenses: ["MIT"],
       files: [
         "lib",
@@ -95,9 +95,8 @@ defmodule ExCheck.MixProject do
         "usage-rules"
       ],
       links: %{
-        "Changelog" => "https://hexdocs.pm/ex_check_ng/changelog.html",
-        "GitHub repository" => @github_url,
-        "Original project" => @upstream_url
+        "Changelog" => "https://hexdocs.pm/ex_check/changelog.html",
+        "GitHub repository" => @github_url
       }
     ]
   end
